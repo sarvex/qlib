@@ -420,7 +420,7 @@ class DataHandlerLP(DataHandler):
             # based on `infer_df` and append the processor
             _learn_df = _infer_df
         else:
-            raise NotImplementedError(f"This type of input is not supported")
+            raise NotImplementedError("This type of input is not supported")
 
         if len(self.learn_processors) > 0:  # avoid modifying the original  data
             _learn_df = _learn_df.copy()
@@ -481,7 +481,7 @@ class DataHandlerLP(DataHandler):
             elif init_type == DataHandlerLP.IT_FIT_SEQ:
                 self.fit_process_data()
             else:
-                raise NotImplementedError(f"This type of input is not supported")
+                raise NotImplementedError("This type of input is not supported")
 
         # TODO: Be able to cache handler data. Save the memory for data processing
 
@@ -490,8 +490,12 @@ class DataHandlerLP(DataHandler):
             raise AttributeError(
                 "DataHandlerLP has not attribute _data, please set drop_raw = False if you want to use raw data"
             )
-        df = getattr(self, {self.DK_R: "_data", self.DK_I: "_infer", self.DK_L: "_learn"}[data_key])
-        return df
+        return getattr(
+            self,
+            {self.DK_R: "_data", self.DK_I: "_infer", self.DK_L: "_learn"}[
+                data_key
+            ],
+        )
 
     def fetch(
         self,
